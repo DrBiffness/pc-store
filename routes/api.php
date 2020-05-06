@@ -17,3 +17,18 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/processors', function () {
+    $processors = App\Processor::all();
+    return response()->json($processors);
+});
+
+Route::get('/motherboards', function () {
+    $motherboards = App\Motherboard::all();
+    return response()->json($motherboards);
+});
+
+Route::get('/gpus', function () {
+    $gpus = App\Gpu::all();
+    return response()->json($gpus);
+});
