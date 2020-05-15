@@ -4,7 +4,7 @@ import Pagination from './common/pagination';
 import ProductTable from './common/productTable';
 import { getProcessors, getType } from './services/itemService';
 
-class Processors extends Component {
+class Items extends Component {
     state = {
         items: [],
         pageSize: 9,
@@ -61,4 +61,4 @@ class Processors extends Component {
     }
 }
 
-export default Processors;
+export default Items;

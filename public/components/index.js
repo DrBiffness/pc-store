@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import Processors from './processors';
+import Items from './items';
 import Motherboards from './motherboards';
-
 // import { getTypes } from './services/itemService';
 
 class Index extends Component {
@@ -21,7 +20,7 @@ class Index extends Component {
             <BrowserRouter>
             <div className="content">
                 <Switch>
-                    <Route path='/processors' component={Processors} />
+                    <Route path='/processors' component={Items} />
                     <Route path='/motherboards' component={Motherboards} />
                 </Switch>
             </div>

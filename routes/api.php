@@ -24,3 +24,4 @@ Route::get('/motherboards', 'MotherboardController@index');
 Route::get('/motherboards/{id}', 'MotherboardController@show');
 Route::get('/gpus', 'GpuController@index');
 Route::get('/gpus/{id}', 'GpuController@show');
+Route::get('/types/{name}', 'TypeController@show');

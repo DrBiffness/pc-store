@@ -8,7 +8,7 @@
         <title>Laravel</title>
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+        <link href={{asset('css/app.css')}} rel="stylesheet">
 
         <!-- Styles -->
         <style>
@@ -85,5 +85,5 @@
             </div>
         </div>
     </body>
-    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src={{ asset('js/app.js')}}></script>
 </html>
