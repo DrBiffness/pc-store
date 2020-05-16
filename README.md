@@ -1,6 +1,7 @@
 # PC Store - custom e-commerce site
 
 ![version](https://img.shields.io/badge/php-7.2.0-blue)![version](https://img.shields.io/badge/laravel-7.0-red)![version](https://img.shields.io/badge/reactjs-16.2.0-green)
+
 PC Store is a custom built e-commerce web site inspired by <a href="https://www.microcenter.com">microcenter.com</a>. The project employs a Laravel back-end for REST APIs with a React.js front-end. MySQL is the database with Eloquent ORM managing the mappings. 
 
 ## Goals
