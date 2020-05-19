@@ -7,7 +7,7 @@ import { getProcessors, getType } from './services/itemService';
 class Processors extends Component {
     state = {
         items: [],
-        pageSize: 9,
+        pageSize: 4,
         currentPage: 1,
         type: {}
     }
@@ -33,31 +33,35 @@ class Processors extends Component {
         const totalCount = allItems.length;
 
         const items = paginate(allItems, currentPage, pageSize);
+        console.log('Paginate', items);
 
         return { totalCount, items };
     }
 
     render() {
-        const { pageSize, currentPage, items, type } = this.state;
-        // const { totalCount, items } = this.getPagedData();
+        const { pageSize, currentPage, type } = this.state;
+        const { totalCount, items } = this.getPagedData();
 
         return (
-            <div className="row">
-                <div className="col-2">
+                <div className="row">
+                    <div className="col">
 
+                    </div>
+                    <div className="col-8">
+                        <ProductTable data={items} type={type} />
+                        <Pagination
+                            itemsCount={totalCount}
+                            pageSize={pageSize}
+                            currentPage={currentPage}
+                            onPageChange={this.handlePageChange}
+                        />
+                    </div>
+                    <div className="col">
+
+                    </div>
                 </div>
-                <div className="col">
-                    <ProductTable data={items} type={type} />
-                    {/* <Pagination
-                        itemsCount={totalCount}
-                        pageSize={pageSize}
-                        currentPage={currentPage}
-                        onPageChange={this.handlePageChange}
-                    /> */}
-                </div>
-            </div>
+
          );
-        // return 'Processors, yo';
     }
 }
 

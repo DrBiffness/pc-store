@@ -19,12 +19,10 @@ class Index extends Component {
     render() {
         return (
             <BrowserRouter>
-            <div className="content">
                 <Switch>
                     <Route path='/processors' component={Processors} />
                     <Route path='/motherboards' component={Motherboards} />
                 </Switch>
-            </div>
             </BrowserRouter>
         )
     }

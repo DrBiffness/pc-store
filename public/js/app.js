@@ -70659,25 +70659,25 @@ var ProductCard = /*#__PURE__*/function (_Component) {
       var _this$props$data = this.props.data,
           id = _this$props$data.id,
           name = _this$props$data.name,
+          manufacturer = _this$props$data.manufacturer,
           price = _this$props$data.price,
           image_url = _this$props$data.image_url;
       var type = this.props.type;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "card",
-        style: {
-          width: '18rem'
-        }
+        className: "card align-items-center"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        className: "card-img-top",
-        src: image_url,
+        className: "card-img-top img-fluid",
         style: {
-          width: '200px',
-          height: '200px'
+          'max-width': '200px',
+          width: '100%'
         },
+        src: image_url,
         alt: "Card image cap"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "card-subtitle"
+      }, manufacturer), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
         className: "card-title"
       }, name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "card-text",
@@ -70687,7 +70687,7 @@ var ProductCard = /*#__PURE__*/function (_Component) {
       }, "$", price)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-footer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        to: "/".concat(type.name, "/").concat(id),
+        to: "/".concat(type.name.toLowerCase(), "/").concat(id),
         className: "btn btn-primary"
       }, "View item")));
     }
@@ -70696,7 +70696,7 @@ var ProductCard = /*#__PURE__*/function (_Component) {
   return ProductCard;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
-/* harmony default export */ __webpack_exports__["default"] = (ProductCard); // <ProductCard data={data} type={type} />
+/* harmony default export */ __webpack_exports__["default"] = (ProductCard); // <ProductCard data={data} type={type} /> style={{width: '18rem'}}
 
 /***/ }),
 
@@ -70759,26 +70759,14 @@ var ProductTable = /*#__PURE__*/function (_Component) {
           type = _this$props.type;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
-      }, data.map(function (item, index) {
-        if (lodash__WEBPACK_IMPORTED_MODULE_2___default.a.isInteger(index++ / 3)) {
-          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-            key: item.id,
-            className: "col-sm-4"
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-            className: "w-100"
-          }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_productCard__WEBPACK_IMPORTED_MODULE_1__["default"], {
-            data: item,
-            type: type
-          }));
-        } else {
-          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-            key: item.id,
-            className: "col-sm-4"
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_productCard__WEBPACK_IMPORTED_MODULE_1__["default"], {
-            data: item,
-            type: type
-          }));
-        }
+      }, data.map(function (item) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          key: item.id,
+          className: "col-sm-4"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_productCard__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          data: item,
+          type: type
+        }));
       }));
     }
   }]);
@@ -70786,7 +70774,88 @@ var ProductTable = /*#__PURE__*/function (_Component) {
   return ProductTable;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
-/* harmony default export */ __webpack_exports__["default"] = (ProductTable);
+/* harmony default export */ __webpack_exports__["default"] = (ProductTable); // <div className="container">
+//     <div className="row row-cols-3">
+//         <div className="col-sm-4">
+//             <div className="card w-auto">
+//                 <img className="card-img-top rounded mx-auto d-block" src={image_url} style={{ width: '200px', height: '200px'}} alt="Card image cap" />
+//                 <div className="card-body">
+//                     <h5 className="card-subtitle">{manufacturer}</h5>
+//                     <h5 className="card-title">{name}</h5>
+//                     <p className="card-text" style={{ fontSize: '25px'}}>${price}</p>
+//                 </div>
+//                 <div className="card-footer">
+//                 <Link to={`/${type.name.toLowerCase()}/${id}`} className="btn btn-primary">View item</Link>
+//                 </div>
+//             </div>
+//         </div>
+//         <div className="col-sm-4">
+//             <div className="card w-auto">
+//                 <img className="card-img-top rounded mx-auto d-block" src={image_url} style={{ width: '200px', height: '200px'}} alt="Card image cap" />
+//                 <div className="card-body">
+//                     <h5 className="card-subtitle">{manufacturer}</h5>
+//                     <h5 className="card-title">{name}</h5>
+//                     <p className="card-text" style={{ fontSize: '25px'}}>${price}</p>
+//                 </div>
+//                 <div className="card-footer">
+//                 <Link to={`/${type.name.toLowerCase()}/${id}`} className="btn btn-primary">View item</Link>
+//                 </div>
+//             </div>
+//         </div>
+//         <div className="col-sm-4">
+//             <div className="card w-auto">
+//                 <img className="card-img-top rounded mx-auto d-block" src={image_url} style={{ width: '200px', height: '200px'}} alt="Card image cap" />
+//                 <div className="card-body">
+//                     <h5 className="card-subtitle">{manufacturer}</h5>
+//                     <h5 className="card-title">{name}</h5>
+//                     <p className="card-text" style={{ fontSize: '25px'}}>${price}</p>
+//                 </div>
+//                 <div className="card-footer">
+//                 <Link to={`/${type.name.toLowerCase()}/${id}`} className="btn btn-primary">View item</Link>
+//                 </div>
+//             </div>
+//         </div>
+//         <div className="col-sm-4">
+//             <div className="card w-auto">
+//                 <img className="card-img-top rounded mx-auto d-block" src={image_url} style={{ width: '200px', height: '200px'}} alt="Card image cap" />
+//                 <div className="card-body">
+//                     <h5 className="card-subtitle">{manufacturer}</h5>
+//                     <h5 className="card-title">{name}</h5>
+//                     <p className="card-text" style={{ fontSize: '25px'}}>${price}</p>
+//                 </div>
+//                 <div className="card-footer">
+//                 <Link to={`/${type.name.toLowerCase()}/${id}`} className="btn btn-primary">View item</Link>
+//                 </div>
+//             </div>
+//         </div>
+//         <div className="col-sm-4">
+//             <div className="card w-auto">
+//                 <img className="card-img-top rounded mx-auto d-block" src={image_url} style={{ width: '200px', height: '200px'}} alt="Card image cap" />
+//                 <div className="card-body">
+//                     <h5 className="card-subtitle">{manufacturer}</h5>
+//                     <h5 className="card-title">{name}</h5>
+//                     <p className="card-text" style={{ fontSize: '25px'}}>${price}</p>
+//                 </div>
+//                 <div className="card-footer">
+//                 <Link to={`/${type.name.toLowerCase()}/${id}`} className="btn btn-primary">View item</Link>
+//                 </div>
+//             </div>
+//         </div>
+//         <div className="col-sm-4">
+//             <div className="card w-auto">
+//                 <img className="card-img-top rounded mx-auto d-block" src={image_url} style={{ width: '200px', height: '200px'}} alt="Card image cap" />
+//                 <div className="card-body">
+//                     <h5 className="card-subtitle">{manufacturer}</h5>
+//                     <h5 className="card-title">{name}</h5>
+//                     <p className="card-text" style={{ fontSize: '25px'}}>${price}</p>
+//                 </div>
+//                 <div className="card-footer">
+//                 <Link to={`/${type.name.toLowerCase()}/${id}`} className="btn btn-primary">View item</Link>
+//                 </div>
+//             </div>
+//         </div>
+//     </div>
+// </div>
 
 /***/ }),
 
@@ -70855,15 +70924,13 @@ var Index = /*#__PURE__*/function (_Component) {
     //     this.setState({ types });
     // }
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "content"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/processors",
         component: _processors__WEBPACK_IMPORTED_MODULE_3__["default"]
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/motherboards",
         component: _motherboards__WEBPACK_IMPORTED_MODULE_4__["default"]
-      }))));
+      })));
     }
   }]);
 
@@ -71009,7 +71076,7 @@ var Processors = /*#__PURE__*/function (_Component) {
 
     _defineProperty(_assertThisInitialized(_this), "state", {
       items: [],
-      pageSize: 9,
+      pageSize: 4,
       currentPage: 1,
       type: {}
     });
@@ -71027,6 +71094,7 @@ var Processors = /*#__PURE__*/function (_Component) {
       var allItems = _this.state.items;
       var totalCount = allItems.length;
       var items = Object(_utils_paginate__WEBPACK_IMPORTED_MODULE_2__["paginate"])(allItems, currentPage, pageSize);
+      console.log('Paginate', items);
       return {
         totalCount: totalCount,
         items: items
@@ -71085,19 +71153,29 @@ var Processors = /*#__PURE__*/function (_Component) {
       var _this$state2 = this.state,
           pageSize = _this$state2.pageSize,
           currentPage = _this$state2.currentPage,
-          items = _this$state2.items,
-          type = _this$state2.type; // const { totalCount, items } = this.getPagedData();
+          type = _this$state2.type;
+
+      var _this$getPagedData = this.getPagedData(),
+          totalCount = _this$getPagedData.totalCount,
+          items = _this$getPagedData.items;
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "row"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "col-2"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "col"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col-8"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_common_productTable__WEBPACK_IMPORTED_MODULE_4__["default"], {
         data: items,
         type: type
-      }))); // return 'Processors, yo';
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_common_pagination__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        itemsCount: totalCount,
+        pageSize: pageSize,
+        currentPage: currentPage,
+        onPageChange: this.handlePageChange
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "col"
+      }));
     }
   }]);
 

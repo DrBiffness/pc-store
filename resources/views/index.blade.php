@@ -80,9 +80,9 @@
                 </div>
             @endif
 
-            <div class="content">
-                <div id="placeholder" class="title m-b-md"></div>
-            </div>
+            {{-- <div class="content-fluid"> --}}
+                <div id="placeholder" class="container-fluid"></div>
+            {{-- </div> --}}
         </div>
     </body>
     <script type="text/javascript" src={{ asset('js/app.js')}}></script>
