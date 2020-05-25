@@ -70560,6 +70560,46 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
+/***/ "./resources/js/components/common/filterContainer.jsx":
+/*!************************************************************!*\
+  !*** ./resources/js/components/common/filterContainer.jsx ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _utils_filter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/filter */ "./resources/js/components/utils/filter.js");
+
+
+
+
+var FilterBox = function FilterBox(_ref) {
+  var data = _ref.data;
+  var filters = Object.entries(Object(_utils_filter__WEBPACK_IMPORTED_MODULE_2__["getFilters"])(data));
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "Filters"), filters.map(function (f) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      key: f[0]
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, f[0]), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+      className: "list-group"
+    }, f[1].map(function (val) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "list-group-item d-flex justify-content-between align-items-center"
+      }, lodash__WEBPACK_IMPORTED_MODULE_1___default.a.isArray(val) ? "$".concat(val[0], "-").concat(val[1]) : val, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "badge badge-primary badge-pill"
+      }, "10"));
+    })));
+  }));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (FilterBox);
+
+/***/ }),
+
 /***/ "./resources/js/components/common/pagination.jsx":
 /*!*******************************************************!*\
   !*** ./resources/js/components/common/pagination.jsx ***!
@@ -71022,6 +71062,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _common_pagination__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./common/pagination */ "./resources/js/components/common/pagination.jsx");
 /* harmony import */ var _common_productTable__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./common/productTable */ "./resources/js/components/common/productTable.jsx");
 /* harmony import */ var _services_itemService__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./services/itemService */ "./resources/js/components/services/itemService.js");
+/* harmony import */ var _common_filterContainer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./common/filterContainer */ "./resources/js/components/common/filterContainer.jsx");
 
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -71058,6 +71099,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 var Processors = /*#__PURE__*/function (_Component) {
   _inherits(Processors, _Component);
 
@@ -71076,7 +71118,7 @@ var Processors = /*#__PURE__*/function (_Component) {
 
     _defineProperty(_assertThisInitialized(_this), "state", {
       items: [],
-      pageSize: 4,
+      pageSize: 9,
       currentPage: 1,
       type: {}
     });
@@ -71163,7 +71205,9 @@ var Processors = /*#__PURE__*/function (_Component) {
         className: "row"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "col"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_common_filterContainer__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        data: items
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "col-8"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_common_productTable__WEBPACK_IMPORTED_MODULE_4__["default"], {
         data: items,
@@ -71271,6 +71315,150 @@ function _getType() {
   }));
   return _getType.apply(this, arguments);
 }
+
+/***/ }),
+
+/***/ "./resources/js/components/utils/filter.js":
+/*!*************************************************!*\
+  !*** ./resources/js/components/utils/filter.js ***!
+  \*************************************************/
+/*! exports provided: getFilters, filter */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getFilters", function() { return getFilters; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "filter", function() { return filter; });
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+ // const _ = require('lodash');
+
+function getFilters(items) {
+  var reducedObject = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.omit(items[0], ['id', 'name', 'category', 'type', 'description', 'image_url', 'price', 'stock']);
+
+  var keys = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.keys(reducedObject);
+
+  var filters = {
+    price: [[0, 50], [50, 100], [100, 500], [500, 1000], [1000, 2000], [2000, 5000], 5000],
+    stock: ['In Stock', 'Out of Stock']
+  };
+  keys.forEach(function (key) {
+    var allValues = items.map(function (item) {
+      return item[key];
+    });
+
+    var values = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.uniq(allValues);
+
+    if (values.length > 1) {
+      // filters.push({ [key]: values});
+      filters[key] = values;
+    }
+  });
+  return filters;
+}
+function filter(items, filters) {
+  if (filters.price) {
+    var _filters$price = _slicedToArray(filters.price, 2),
+        start = _filters$price[0],
+        end = _filters$price[1];
+
+    items = items.filter(function (item) {
+      return +item.price > start && +item.price <= end;
+    });
+    delete filters.price;
+  }
+
+  if (filters.stock) {
+    if (filters.stock === 'In Stock') {
+      items = items.filter(function (item) {
+        return item.stock > 0;
+      });
+    } else {
+      items = items.filter(function (item) {
+        return item.stock === 0;
+      });
+    }
+
+    delete filters.stock;
+  }
+
+  var _loop = function _loop() {
+    var _Object$entries$_i = _slicedToArray(_Object$entries[_i2], 2),
+        key = _Object$entries$_i[0],
+        value = _Object$entries$_i[1];
+
+    items = items.filter(function (item) {
+      return item[key] === value;
+    });
+  };
+
+  for (var _i2 = 0, _Object$entries = Object.entries(filters); _i2 < _Object$entries.length; _i2++) {
+    _loop();
+  }
+
+  return items;
+} // const items =
+//     [
+//       {
+//         "id": 1,
+//         "name": "Ryzen 7 2700x",
+//         "manufacturer": "AMD",
+//         "category": 1,
+//         "type": 1,
+//         "price": "289.99",
+//         "description": "Experience elite performance in games, content creation, and intense multi-tasking. A beautifully balanced design for serious PC enthusiasts.",
+//         "stock": 5,
+//         "image_url": "img/ryzen.jpg",
+//         "chip_maker": "AMD",
+//         "socket": "AM4",
+//         "cores": 8,
+//         "threads": 16
+//       },
+//       {
+//         "id": 1,
+//         "name": "Ryzen 7 2700x",
+//         "manufacturer": "AMD",
+//         "category": 1,
+//         "type": 1,
+//         "price": "289.99",
+//         "description": "Experience elite performance in games, content creation, and intense multi-tasking. A beautifully balanced design for serious PC enthusiasts.",
+//         "stock": 5,
+//         "image_url": "img/ryzen.jpg",
+//         "chip_maker": "AMD",
+//         "socket": "AM5",
+//         "cores": 10,
+//         "threads": 16
+//       },
+//       {
+//         "id": 1,
+//         "name": "Ryzen 7 2700x",
+//         "manufacturer": "INTEL",
+//         "category": 1,
+//         "type": 1,
+//         "price": "45.99",
+//         "description": "Experience elite performance in games, content creation, and intense multi-tasking. A beautifully balanced design for serious PC enthusiasts.",
+//         "stock": 0,
+//         "image_url": "img/ryzen.jpg",
+//         "chip_maker": "INTEL",
+//         "socket": "AM5",
+//         "cores": 12,
+//         "threads": 16
+//       }
+//     ];
+// console.log(Object.entries(getFilters(items)));
+// filter(items, { stock: 'In Stock', socket: 'AM5'});
 
 /***/ }),
 

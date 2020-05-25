@@ -3,11 +3,12 @@ import { paginate } from './utils/paginate';
 import Pagination from './common/pagination';
 import ProductTable from './common/productTable';
 import { getProcessors, getType } from './services/itemService';
+import FilterBox from './common/filterContainer';
 
 class Processors extends Component {
     state = {
         items: [],
-        pageSize: 4,
+        pageSize: 9,
         currentPage: 1,
         type: {}
     }
@@ -45,7 +46,7 @@ class Processors extends Component {
         return (
                 <div className="row">
                     <div className="col">
-
+                        <FilterBox data={items} />
                     </div>
                     <div className="col-8">
                         <ProductTable data={items} type={type} />
