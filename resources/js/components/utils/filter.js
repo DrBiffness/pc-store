@@ -1,13 +1,14 @@
+'use strict';
 import _ from 'lodash';
 // const _ = require('lodash');
 
 export function getFilters(items) {
     const reducedObject = _.omit(items[0], ['id', 'name', 'category', 'type', 'description', 'image_url', 'price', 'stock']);
     const keys = _.keys(reducedObject);
+    const filters = {};
+    filters.price =
 
-    const filters =
-        {
-            price: [
+            [
                 [0, 50],
                 [50, 100],
                 [100, 500],
@@ -15,12 +16,8 @@ export function getFilters(items) {
                 [1000, 2000],
                 [2000, 5000],
                 5000
-            ],
-            stock: [
-                'In Stock',
-                'Out of Stock'
             ]
-        }
+
     ;
 
     keys.forEach(key => {
@@ -32,30 +29,47 @@ export function getFilters(items) {
         }
     });
 
+    filters.stock = [
+        'In Stock',
+        'Out of Stock'
+    ];
+
     return filters;
 
 }
 
 export function filter(items, filters) {
-    if (filters.price) {
-        const [start, end] = filters.price;
-        items = items.filter(item => +item.price > start && +item.price <= end);
-        delete filters.price;
+    const filtersCopy = {...filters};
+    const { price, stock} = filtersCopy;
+    // console.log('1');
+    // console.log(filters);
+    if (price) {
+        if (!_.isArray(price)) {
+            items = items.filter(item => +item.price >= +price);
+        } else {
+            const [start, end] = price;
+            items = items.filter(item => +item.price > start && +item.price <= end);
+        }
+        delete filtersCopy.price;
     }
+    // console.log('2');
 
-    if (filters.stock) {
-        if (filters.stock === 'In Stock') {
+    if (stock) {
+        if (stock === 'In Stock') {
             items = items.filter(item => item.stock > 0);
         } else {
             items = items.filter(item => item.stock === 0);
         }
-        delete filters.stock;
+        delete filtersCopy.stock;
     }
 
 
-    for (const [key, value] of Object.entries(filters)) {
+    for (const [key, value] of Object.entries(filtersCopy)) {
+        // console.log(key, value);
         items = items.filter(item => item[key] === value);
     }
+
+    // console.log(items);
 
     return items;
 }

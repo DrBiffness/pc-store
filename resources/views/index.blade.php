@@ -22,7 +22,7 @@
             }
 
             .full-height {
-                height: 100vh;
+                height: 10vh;
             }
 
             .flex-center {
@@ -80,10 +80,8 @@
                 </div>
             @endif
 
-            {{-- <div class="content-fluid"> --}}
-                <div id="placeholder" class="container-fluid"></div>
-            {{-- </div> --}}
         </div>
+        <div id="placeholder" class="container-fluid"></div>
     </body>
     <script type="text/javascript" src={{ asset('js/app.js')}}></script>
 </html>

@@ -70574,21 +70574,41 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _utils_filter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/filter */ "./resources/js/components/utils/filter.js");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
 
 var FilterBox = function FilterBox(_ref) {
-  var data = _ref.data;
-  var filters = Object.entries(Object(_utils_filter__WEBPACK_IMPORTED_MODULE_2__["getFilters"])(data));
+  var data = _ref.data,
+      currentFilters = _ref.currentFilters,
+      onFilterChange = _ref.onFilterChange,
+      onFilterDelete = _ref.onFilterDelete;
+  var filters = Object.entries(Object(_utils_filter__WEBPACK_IMPORTED_MODULE_2__["getFilters"])(data)); // console.log(filters);
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "Filters"), filters.map(function (f) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      key: f[0]
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, f[0]), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+      key: f[0],
+      style: {
+        marginBottom: '10px'
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, f[0].toLocaleUpperCase()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
       className: "list-group"
-    }, f[1].map(function (val) {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: "list-group-item d-flex justify-content-between align-items-center"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      className: !currentFilters.hasOwnProperty(f[0]) ? "list-group-item d-flex justify-content-between align-items-center active" : "list-group-item d-flex justify-content-between align-items-center",
+      key: "All",
+      onClick: function onClick() {
+        return onFilterDelete(f[0]);
+      }
+    }, "All"), f[1].map(function (val) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        // className="list-group-item d-flex justify-content-between align-items-center"
+        className: JSON.stringify(currentFilters[f[0]]) === JSON.stringify(val) ? "list-group-item d-flex justify-content-between align-items-center active" : "list-group-item d-flex justify-content-between align-items-center",
+        key: val,
+        onClick: function onClick() {
+          return onFilterChange(_defineProperty({}, f[0], val));
+        }
       }, lodash__WEBPACK_IMPORTED_MODULE_1___default.a.isArray(val) ? "$".concat(val[0], "-").concat(val[1]) : val, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "badge badge-primary badge-pill"
       }, "10"));
@@ -71063,6 +71083,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _common_productTable__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./common/productTable */ "./resources/js/components/common/productTable.jsx");
 /* harmony import */ var _services_itemService__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./services/itemService */ "./resources/js/components/services/itemService.js");
 /* harmony import */ var _common_filterContainer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./common/filterContainer */ "./resources/js/components/common/filterContainer.jsx");
+/* harmony import */ var _utils_filter__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./utils/filter */ "./resources/js/components/utils/filter.js");
 
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -71070,6 +71091,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -71100,6 +71125,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 var Processors = /*#__PURE__*/function (_Component) {
   _inherits(Processors, _Component);
 
@@ -71118,9 +71144,10 @@ var Processors = /*#__PURE__*/function (_Component) {
 
     _defineProperty(_assertThisInitialized(_this), "state", {
       items: [],
-      pageSize: 9,
+      pageSize: 3,
       currentPage: 1,
-      type: {}
+      type: {},
+      filters: {}
     });
 
     _defineProperty(_assertThisInitialized(_this), "handlePageChange", function (page) {
@@ -71129,14 +71156,43 @@ var Processors = /*#__PURE__*/function (_Component) {
       });
     });
 
+    _defineProperty(_assertThisInitialized(_this), "handleFilterChange", function (filter) {
+      // console.log(filter);
+      _this.setState({
+        filters: _objectSpread(_objectSpread({}, _this.state.filters), filter),
+        currentPage: 1
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "handleFilterDelete", function (filter) {
+      var filters = _this.state.filters;
+
+      if (!filter) {
+        _this.setState({
+          filters: {}
+        });
+      } else {
+        delete filters[filter];
+
+        _this.setState({
+          filters: filters
+        });
+      }
+    });
+
     _defineProperty(_assertThisInitialized(_this), "getPagedData", function () {
       var _this$state = _this.state,
           pageSize = _this$state.pageSize,
-          currentPage = _this$state.currentPage;
+          currentPage = _this$state.currentPage,
+          filters = _this$state.filters;
       var allItems = _this.state.items;
+
+      if (filters) {
+        allItems = Object(_utils_filter__WEBPACK_IMPORTED_MODULE_7__["filter"])(allItems, filters);
+      }
+
       var totalCount = allItems.length;
       var items = Object(_utils_paginate__WEBPACK_IMPORTED_MODULE_2__["paginate"])(allItems, currentPage, pageSize);
-      console.log('Paginate', items);
       return {
         totalCount: totalCount,
         items: items
@@ -71195,7 +71251,8 @@ var Processors = /*#__PURE__*/function (_Component) {
       var _this$state2 = this.state,
           pageSize = _this$state2.pageSize,
           currentPage = _this$state2.currentPage,
-          type = _this$state2.type;
+          type = _this$state2.type,
+          filters = _this$state2.filters;
 
       var _this$getPagedData = this.getPagedData(),
           totalCount = _this$getPagedData.totalCount,
@@ -71206,7 +71263,10 @@ var Processors = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "col"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_common_filterContainer__WEBPACK_IMPORTED_MODULE_6__["default"], {
-        data: items
+        data: this.state.items,
+        currentFilters: filters,
+        onFilterChange: this.handleFilterChange,
+        onFilterDelete: this.handleFilterDelete
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "col-8"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_common_productTable__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -71331,6 +71391,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "filter", function() { return filter; });
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
+
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -71343,6 +71405,12 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
  // const _ = require('lodash');
 
 function getFilters(items) {
@@ -71350,10 +71418,8 @@ function getFilters(items) {
 
   var keys = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.keys(reducedObject);
 
-  var filters = {
-    price: [[0, 50], [50, 100], [100, 500], [500, 1000], [1000, 2000], [2000, 5000], 5000],
-    stock: ['In Stock', 'Out of Stock']
-  };
+  var filters = {};
+  filters.price = [[0, 50], [50, 100], [100, 500], [500, 1000], [1000, 2000], [2000, 5000], 5000];
   keys.forEach(function (key) {
     var allValues = items.map(function (item) {
       return item[key];
@@ -71366,22 +71432,37 @@ function getFilters(items) {
       filters[key] = values;
     }
   });
+  filters.stock = ['In Stock', 'Out of Stock'];
   return filters;
 }
 function filter(items, filters) {
-  if (filters.price) {
-    var _filters$price = _slicedToArray(filters.price, 2),
-        start = _filters$price[0],
-        end = _filters$price[1];
+  var filtersCopy = _objectSpread({}, filters);
 
-    items = items.filter(function (item) {
-      return +item.price > start && +item.price <= end;
-    });
-    delete filters.price;
-  }
+  var price = filtersCopy.price,
+      stock = filtersCopy.stock; // console.log('1');
+  // console.log(filters);
 
-  if (filters.stock) {
-    if (filters.stock === 'In Stock') {
+  if (price) {
+    if (!lodash__WEBPACK_IMPORTED_MODULE_0___default.a.isArray(price)) {
+      items = items.filter(function (item) {
+        return +item.price >= +price;
+      });
+    } else {
+      var _price = _slicedToArray(price, 2),
+          start = _price[0],
+          end = _price[1];
+
+      items = items.filter(function (item) {
+        return +item.price > start && +item.price <= end;
+      });
+    }
+
+    delete filtersCopy.price;
+  } // console.log('2');
+
+
+  if (stock) {
+    if (stock === 'In Stock') {
       items = items.filter(function (item) {
         return item.stock > 0;
       });
@@ -71391,7 +71472,7 @@ function filter(items, filters) {
       });
     }
 
-    delete filters.stock;
+    delete filtersCopy.stock;
   }
 
   var _loop = function _loop() {
@@ -71399,14 +71480,16 @@ function filter(items, filters) {
         key = _Object$entries$_i[0],
         value = _Object$entries$_i[1];
 
+    // console.log(key, value);
     items = items.filter(function (item) {
       return item[key] === value;
     });
   };
 
-  for (var _i2 = 0, _Object$entries = Object.entries(filters); _i2 < _Object$entries.length; _i2++) {
+  for (var _i2 = 0, _Object$entries = Object.entries(filtersCopy); _i2 < _Object$entries.length; _i2++) {
     _loop();
-  }
+  } // console.log(items);
+
 
   return items;
 } // const items =
