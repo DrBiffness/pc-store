@@ -41,8 +41,7 @@ export function getFilters(items) {
 export function filter(items, filters) {
     const filtersCopy = {...filters};
     const { price, stock} = filtersCopy;
-    // console.log('1');
-    // console.log(filters);
+
     if (price) {
         if (!_.isArray(price)) {
             items = items.filter(item => +item.price >= +price);
@@ -52,7 +51,6 @@ export function filter(items, filters) {
         }
         delete filtersCopy.price;
     }
-    // console.log('2');
 
     if (stock) {
         if (stock === 'In Stock') {
@@ -65,11 +63,8 @@ export function filter(items, filters) {
 
 
     for (const [key, value] of Object.entries(filtersCopy)) {
-        // console.log(key, value);
         items = items.filter(item => item[key] === value);
     }
-
-    // console.log(items);
 
     return items;
 }

@@ -71439,8 +71439,7 @@ function filter(items, filters) {
   var filtersCopy = _objectSpread({}, filters);
 
   var price = filtersCopy.price,
-      stock = filtersCopy.stock; // console.log('1');
-  // console.log(filters);
+      stock = filtersCopy.stock;
 
   if (price) {
     if (!lodash__WEBPACK_IMPORTED_MODULE_0___default.a.isArray(price)) {
@@ -71458,8 +71457,7 @@ function filter(items, filters) {
     }
 
     delete filtersCopy.price;
-  } // console.log('2');
-
+  }
 
   if (stock) {
     if (stock === 'In Stock') {
@@ -71480,7 +71478,6 @@ function filter(items, filters) {
         key = _Object$entries$_i[0],
         value = _Object$entries$_i[1];
 
-    // console.log(key, value);
     items = items.filter(function (item) {
       return item[key] === value;
     });
@@ -71488,8 +71485,7 @@ function filter(items, filters) {
 
   for (var _i2 = 0, _Object$entries = Object.entries(filtersCopy); _i2 < _Object$entries.length; _i2++) {
     _loop();
-  } // console.log(items);
-
+  }
 
   return items;
 } // const items =
