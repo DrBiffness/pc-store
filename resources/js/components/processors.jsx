@@ -5,6 +5,7 @@ import ProductTable from './common/productTable';
 import { getProcessors, getType } from './services/itemService';
 import FilterBox from './common/filterContainer';
 import { filter } from './utils/filter';
+import SortPanel from './common/sortPanel';
 
 class Processors extends Component {
     state = {
@@ -12,7 +13,8 @@ class Processors extends Component {
         pageSize: 3,
         currentPage: 1,
         type: {},
-        filters: {}
+        filters: {},
+        sortColumn: { label: "Best Match" }
     }
 
     async componentDidMount() {
@@ -47,8 +49,12 @@ class Processors extends Component {
         }
     }
 
+    handleSort = (opt) => {
+        this.setState({sortColumn: opt});
+    }
+
     getPagedData = () => {
-        const {pageSize, currentPage, filters} = this.state;
+        const {pageSize, currentPage, filters, sortColumn} = this.state;
 
         let { items: allItems } = this.state;
 
@@ -58,13 +64,15 @@ class Processors extends Component {
 
         const totalCount = allItems.length;
 
+        allItems = _.orderBy(allItems, [sortColumn.path], [sortColumn.order]);
+
         const items = paginate(allItems, currentPage, pageSize);
 
         return { totalCount, items };
     }
 
     render() {
-        const { pageSize, currentPage, type, filters } = this.state;
+        const { pageSize, currentPage, type, filters, sortColumn } = this.state;
         const { totalCount, items } = this.getPagedData();
 
         return (
@@ -78,6 +86,7 @@ class Processors extends Component {
                         />
                     </div>
                     <div className="col-8">
+                        <SortPanel onSort={this.handleSort} sortColumn={sortColumn} />
                         <ProductTable data={items} type={type} />
                         <Pagination
                             itemsCount={totalCount}

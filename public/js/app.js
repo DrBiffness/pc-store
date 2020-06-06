@@ -70585,9 +70585,14 @@ var FilterBox = function FilterBox(_ref) {
       currentFilters = _ref.currentFilters,
       onFilterChange = _ref.onFilterChange,
       onFilterDelete = _ref.onFilterDelete;
-  var filters = Object.entries(Object(_utils_filter__WEBPACK_IMPORTED_MODULE_2__["getFilters"])(data)); // console.log(filters);
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "Filters"), filters.map(function (f) {
+  var filters = Object.entries(Object(_utils_filter__WEBPACK_IMPORTED_MODULE_2__["getFilters"])(data));
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "Filters"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    className: "btn btn-secondary btn-lg",
+    onClick: function onClick() {
+      return onFilterDelete();
+    },
+    disabled: currentFilters ? false : true
+  }, "Clear All Filters"), filters.map(function (f) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       key: f[0],
       style: {
@@ -70919,6 +70924,124 @@ var ProductTable = /*#__PURE__*/function (_Component) {
 
 /***/ }),
 
+/***/ "./resources/js/components/common/sortPanel.jsx":
+/*!******************************************************!*\
+  !*** ./resources/js/components/common/sortPanel.jsx ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function () { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+var SortPanel = /*#__PURE__*/function (_Component) {
+  _inherits(SortPanel, _Component);
+
+  var _super = _createSuper(SortPanel);
+
+  function SortPanel() {
+    var _this;
+
+    _classCallCheck(this, SortPanel);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _super.call.apply(_super, [this].concat(args));
+
+    _defineProperty(_assertThisInitialized(_this), "sortOptions", [{
+      label: 'Price - Low to High',
+      path: 'price',
+      order: 'asc'
+    }, {
+      label: 'Price - High to Low',
+      path: 'price',
+      order: 'desc'
+    }, {
+      label: 'Alphabetical',
+      path: 'name',
+      order: 'asc'
+    }]);
+
+    return _this;
+  }
+
+  _createClass(SortPanel, [{
+    key: "render",
+    value: function render() {
+      var _this$props = this.props,
+          onSort = _this$props.onSort,
+          sortColumn = _this$props.sortColumn;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "panel panel-info"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "panel-heading"
+      }, "Search & Sort"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "panel-body"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "dropdown"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-default dropdown-toggle",
+        type: "button",
+        id: "sortMenu",
+        "data-toggle": "dropdown",
+        "aria-haspopup": "true",
+        "aria-expanded": "true"
+      }, !sortColumn ? "Sort" : sortColumn.label, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "caret"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "dropdown-menu",
+        "aria-labelledby": "sortMenu"
+      }, this.sortOptions.map(function (opt) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          key: opt.label
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          style: {
+            cursor: "pointer"
+          },
+          onClick: function onClick() {
+            return onSort(opt);
+          }
+        }, opt.label));
+      })))));
+    }
+  }]);
+
+  return SortPanel;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+/* harmony default export */ __webpack_exports__["default"] = (SortPanel);
+
+/***/ }),
+
 /***/ "./resources/js/components/index.js":
 /*!******************************************!*\
   !*** ./resources/js/components/index.js ***!
@@ -71084,6 +71207,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_itemService__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./services/itemService */ "./resources/js/components/services/itemService.js");
 /* harmony import */ var _common_filterContainer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./common/filterContainer */ "./resources/js/components/common/filterContainer.jsx");
 /* harmony import */ var _utils_filter__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./utils/filter */ "./resources/js/components/utils/filter.js");
+/* harmony import */ var _common_sortPanel__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./common/sortPanel */ "./resources/js/components/common/sortPanel.jsx");
 
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -71126,6 +71250,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 var Processors = /*#__PURE__*/function (_Component) {
   _inherits(Processors, _Component);
 
@@ -71147,7 +71272,10 @@ var Processors = /*#__PURE__*/function (_Component) {
       pageSize: 3,
       currentPage: 1,
       type: {},
-      filters: {}
+      filters: {},
+      sortColumn: {
+        label: "Best Match"
+      }
     });
 
     _defineProperty(_assertThisInitialized(_this), "handlePageChange", function (page) {
@@ -71180,11 +71308,18 @@ var Processors = /*#__PURE__*/function (_Component) {
       }
     });
 
+    _defineProperty(_assertThisInitialized(_this), "handleSort", function (opt) {
+      _this.setState({
+        sortColumn: opt
+      });
+    });
+
     _defineProperty(_assertThisInitialized(_this), "getPagedData", function () {
       var _this$state = _this.state,
           pageSize = _this$state.pageSize,
           currentPage = _this$state.currentPage,
-          filters = _this$state.filters;
+          filters = _this$state.filters,
+          sortColumn = _this$state.sortColumn;
       var allItems = _this.state.items;
 
       if (filters) {
@@ -71192,6 +71327,7 @@ var Processors = /*#__PURE__*/function (_Component) {
       }
 
       var totalCount = allItems.length;
+      allItems = _.orderBy(allItems, [sortColumn.path], [sortColumn.order]);
       var items = Object(_utils_paginate__WEBPACK_IMPORTED_MODULE_2__["paginate"])(allItems, currentPage, pageSize);
       return {
         totalCount: totalCount,
@@ -71252,7 +71388,8 @@ var Processors = /*#__PURE__*/function (_Component) {
           pageSize = _this$state2.pageSize,
           currentPage = _this$state2.currentPage,
           type = _this$state2.type,
-          filters = _this$state2.filters;
+          filters = _this$state2.filters,
+          sortColumn = _this$state2.sortColumn;
 
       var _this$getPagedData = this.getPagedData(),
           totalCount = _this$getPagedData.totalCount,
@@ -71269,7 +71406,10 @@ var Processors = /*#__PURE__*/function (_Component) {
         onFilterDelete: this.handleFilterDelete
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "col-8"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_common_productTable__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_common_sortPanel__WEBPACK_IMPORTED_MODULE_8__["default"], {
+        onSort: this.handleSort,
+        sortColumn: sortColumn
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_common_productTable__WEBPACK_IMPORTED_MODULE_4__["default"], {
         data: items,
         type: type
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_common_pagination__WEBPACK_IMPORTED_MODULE_3__["default"], {

@@ -4,11 +4,17 @@ import { getFilters } from '../utils/filter';
 
 const FilterBox = ({ data, currentFilters, onFilterChange, onFilterDelete }) => {
     const filters = Object.entries(getFilters(data));
-    // console.log(filters);
 
     return (
         <div>
             <h5>Filters</h5>
+            <button
+            className='btn btn-secondary btn-lg'
+            onClick={() => onFilterDelete()}
+            disabled={currentFilters ? false : true}
+            >
+                Clear All Filters
+            </button>
             {filters.map(f => (
                 <div key={f[0]} style={{ marginBottom: '10px'}}>
                     <h5>{f[0].toLocaleUpperCase()}</h5>
