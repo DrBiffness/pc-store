@@ -14,7 +14,8 @@ class Processors extends Component {
         currentPage: 1,
         type: {},
         filters: {},
-        sortColumn: { label: "Best Match" }
+        sortColumn: { label: "Best Match" },
+        searchFilter: ""
     }
 
     async componentDidMount() {
@@ -53,8 +54,16 @@ class Processors extends Component {
         this.setState({sortColumn: opt});
     }
 
+    handleSearch = (query) => {
+        this.setState({
+            searchFilter: query.toLowerCase(),
+            filters: {},
+            currentPage: 1
+        })
+    }
+
     getPagedData = () => {
-        const {pageSize, currentPage, filters, sortColumn} = this.state;
+        const {pageSize, currentPage, filters, searchFilter, sortColumn} = this.state;
 
         let { items: allItems } = this.state;
 
@@ -62,9 +71,15 @@ class Processors extends Component {
             allItems = filter(allItems, filters);
         }
 
+        if (searchFilter) {
+            allItems = allItems.filter(item => item.name.toLowerCase().startsWith(searchFilter));
+        }
+
         const totalCount = allItems.length;
 
-        allItems = _.orderBy(allItems, [sortColumn.path], [sortColumn.order]);
+        if (sortColumn.path) {
+            allItems = _.orderBy(allItems, [sortColumn.path], [sortColumn.order]);
+        }
 
         const items = paginate(allItems, currentPage, pageSize);
 
@@ -86,7 +101,7 @@ class Processors extends Component {
                         />
                     </div>
                     <div className="col-8">
-                        <SortPanel onSort={this.handleSort} sortColumn={sortColumn} />
+                        <SortPanel onSort={this.handleSort} onSearch={this.handleSearch} sortColumn={sortColumn} />
                         <ProductTable data={items} type={type} />
                         <Pagination
                             itemsCount={totalCount}
