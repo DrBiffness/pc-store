@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Sort from './sort';
+import Search from './search';
 
 class SortPanel extends Component {
     sortOptions = [
@@ -9,12 +10,13 @@ class SortPanel extends Component {
     ]
 
     render() {
-        const { onSort, sortColumn } = this.props;
+        const { onSort, onSearch, sortColumn, searchFilter, type } = this.props;
         const { sortOptions } = this;
         return (
             <div className="panel panel-info">
                 <div className="panel-heading">Search & Sort</div>
                     <div className="panel-body">
+                        <Search type={type} onSearch={onSearch} searchFilter={searchFilter} />
                         <Sort onSort={onSort} sortColumn={sortColumn} sortOptions={sortOptions} />
                     </div>
             </div>

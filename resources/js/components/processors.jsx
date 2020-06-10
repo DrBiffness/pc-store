@@ -87,21 +87,27 @@ class Processors extends Component {
     }
 
     render() {
-        const { pageSize, currentPage, type, filters, sortColumn } = this.state;
+        const { pageSize, currentPage, type, filters, sortColumn, searchFilter } = this.state;
         const { totalCount, items } = this.getPagedData();
 
         return (
                 <div className="row">
                     <div className="col">
                         <FilterBox
-                        data={this.state.items}
-                        currentFilters={filters}
-                        onFilterChange={this.handleFilterChange}
-                        onFilterDelete={this.handleFilterDelete}
+                            data={this.state.items}
+                            currentFilters={filters}
+                            onFilterChange={this.handleFilterChange}
+                            onFilterDelete={this.handleFilterDelete}
                         />
                     </div>
                     <div className="col-8">
-                        <SortPanel onSort={this.handleSort} onSearch={this.handleSearch} sortColumn={sortColumn} />
+                        <SortPanel
+                            onSort={this.handleSort}
+                            type={type}
+                            onSearch={this.handleSearch}
+                            sortColumn={sortColumn}
+                            searchFilter={searchFilter}
+                        />
                         <ProductTable data={items} type={type} />
                         <Pagination
                             itemsCount={totalCount}
