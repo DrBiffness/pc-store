@@ -14,7 +14,7 @@ class SortPanel extends Component {
         const { sortOptions } = this;
         return (
             <div className="panel panel-info">
-                <div className="panel-heading">Search & Sort</div>
+                <div className="panel-heading">Search By Product Name</div>
                     <div className="panel-body">
                         <Search type={type} onSearch={onSearch} searchFilter={searchFilter} />
                         <Sort onSort={onSort} sortColumn={sortColumn} sortOptions={sortOptions} />
